@@ -1,0 +1,11 @@
+<h2>{{ customer | titlecase }}</h2>
+
+<time>
+  {{ issuedAt | date:'dd MMM yyyy':'':'id-ID' }}
+</time>
+
+<strong>
+  {{ total | currency:'IDR':'symbol':'1.0-0':'id-ID' }}
+</strong>
+
+<pre>{{ invoice | json }}</pre>

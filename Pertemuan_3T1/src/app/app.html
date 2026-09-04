@@ -1,0 +1,43 @@
+<div style="padding: 20px; font-family: Arial, sans-serif;">
+
+  <h1>Tugas Directive & Pipe Angular 21</h1>
+  <hr>
+
+  
+  <h3>1. Percobaan Common Directives</h3>
+  
+  <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
+    <h4>NgModel</h4>
+    <label>Ketik Nama Anda: </label>
+    <input type="text" [(ngModel)]="userName">
+    <p>Halo, {{ userName }}!</p>
+
+    <h4>NgClass</h4>
+    <button (click)="toggleActive()">Toggle Class Aktif</button>
+    <p [ngClass]="{'kotak-aktif': isActive}">
+      Teks ini akan berubah tampilannya jika tombol ditekan.
+    </p>
+
+    <h4>NgStyle</h4>
+    <button (click)="fontSize = fontSize + 2">Perbesar Teks</button>
+    <button (click)="fontSize = fontSize - 2">Perkecil Teks</button>
+    <p [ngStyle]="{'font-size.px': fontSize}">
+      Ukuran teks ini sekarang {{ fontSize }}px.
+    </p>
+  </div>
+
+  <h3>2. Standalone Directive (Slide 5-6)</h3>
+  <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
+    <h2 appHighlight [color]="highlightColor()">
+      Arahkan mouse ke sini untuk melihat efek Highlight!
+    </h2>
+    <label>Ubah Warna Highlight: </label>
+    <input type="color"
+      [value]="highlightColor()"
+      (input)="highlightColor.set($any($event.target).value)" />
+  </div>
+
+  <h3>3. Pipe (Slide 12-13)</h3>
+  <app-invoice></app-invoice>
+
+</div>
