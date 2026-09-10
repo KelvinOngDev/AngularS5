@@ -1,0 +1,25 @@
+<h1>Family Expense Tracker</h1>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Activity</th>
+      <th>Category</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of expenses; track item.title) {
+      <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.category | category }}</td>
+        <td [appAmountColor]="item.amount">
+          {{ item.amount | rupiah }}
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="3">Belum ada data pengeluaran.</td>
+      </tr>
+    }
+  </tbody>
+</table>
