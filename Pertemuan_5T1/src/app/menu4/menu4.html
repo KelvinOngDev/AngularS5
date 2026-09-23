@@ -1,0 +1,29 @@
+<section class="page-card">
+  <div class="page-heading">
+    <p class="section-tag">Advanced</p>
+    <h2>Menu 4</h2>
+  </div>
+
+  <div class="menu-grid" aria-label="Menu 4 options">
+    <button
+      class="menu-option"
+      [class.selected]="selectedMenu() === 'a'"
+      type="button"
+      (click)="selectMenu('a')"
+    >
+      <span class="option-label">Menu A</span>
+      <span class="option-description">Lihat Submenu A.</span>
+    </button>
+
+    <button
+      class="menu-option"
+      [class.selected]="selectedMenu() === 'b'"
+      type="button"
+      (click)="selectMenu('b')"
+    >
+      <span class="option-label">Menu B</span>
+      <span class="option-description">Lihat Submenu B.</span>
+    </button>
+  </div>
+</section>
+

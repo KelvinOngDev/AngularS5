@@ -1,0 +1,19 @@
+<section class="page-card">
+  <div class="page-heading">
+    <div>
+      <p class="section-tag">Overview</p>
+      <h2>Menu 1</h2>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    @for (card of cards; track card.title) {
+      <article class="mini-card">
+        <span>{{ card.title }}</span>
+        <strong>{{ card.value }}</strong>
+        <small>{{ card.text }}</small>
+      </article>
+    }
+  </div>
+</section>
+

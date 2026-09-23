@@ -1,0 +1,53 @@
+<nav class="sidebar">
+  <div class="brand-box">
+    <span class="mini-logo">A</span>
+    <div>
+      <strong>Admin Panel</strong>
+      <small>Management</small>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <p class="nav-title">Navigation</p>
+
+    @for (item of navItems; track item.path) {
+      @if (item.children) {
+        <div class="nav-dropdown">
+          <a
+            class="nav-item nav-parent"
+            [routerLink]="item.path"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: false }"
+          >
+            <span class="nav-icon">{{ item.icon }}</span>
+            <span>{{ item.label }}</span>
+            <span class="dropdown-caret">▾</span>
+          </a>
+
+          <div class="submenu-group">
+            @for (child of item.children; track child.path) {
+              <a
+                class="nav-subitem"
+                [routerLink]="child.path"
+                (click)="selectMenu4(child.option)"
+              >
+                {{ child.label }}
+              </a>
+            }
+          </div>
+        </div>
+      } @else {
+        <a
+          class="nav-item"
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }"
+        >
+          <span class="nav-icon">{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    }
+  </div>
+</nav>
+

@@ -1,0 +1,26 @@
+<section class="page-card">
+  <div class="page-heading">
+    <p class="section-tag">Sales</p>
+    <h2>Menu 2</h2>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Status</th>
+        <th>Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of rows; track row.name) {
+        <tr>
+          <td>{{ row.name }}</td>
+          <td><span class="badge" [class.pending]="row.status === 'Pending'">{{ row.status }}</span></td>
+          <td>{{ row.amount }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
+

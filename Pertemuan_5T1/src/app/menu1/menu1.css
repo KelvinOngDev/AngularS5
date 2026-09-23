@@ -1,0 +1,52 @@
+.page-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.page-heading h2 {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1.8rem, 2vw, 2.3rem);
+}
+
+.section-tag {
+  margin: 0 0 0.35rem;
+  color: #6b7280;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.mini-card {
+  padding: 1rem;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.mini-card span,
+.mini-card small {
+  color: #6b7280;
+}
+
+.mini-card strong {
+  font-size: 1.8rem;
+  color: #111827;
+}
+
+@media (max-width: 700px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

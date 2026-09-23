@@ -1,0 +1,68 @@
+<section class="page-shell">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Overview</p>
+      <h2>Dashboard</h2>
+    </div>
+    <button class="primary-button">Export report</button>
+  </div>
+
+  <div class="stats-grid">
+    @for (stat of stats; track stat.title) {
+      <article class="stat-card">
+        <span class="stat-title">{{ stat.title }}</span>
+        <strong>{{ stat.value }}</strong>
+        <span class="stat-change" [class.positive]="stat.tone === 'positive'" [class.negative]="stat.tone === 'negative'">
+          {{ stat.change }}
+        </span>
+      </article>
+    }
+  </div>
+
+  <div class="content-grid">
+    <article class="panel-card wide-card">
+      <div class="panel-header">
+        <h3>Performance Trend</h3>
+        <span>Last 30 days</span>
+      </div>
+
+      <div class="chart-bars" aria-label="Chart">
+        <span style="height: 48%"></span>
+        <span style="height: 62%"></span>
+        <span style="height: 52%"></span>
+        <span style="height: 76%"></span>
+        <span style="height: 68%"></span>
+        <span style="height: 88%"></span>
+        <span style="height: 94%"></span>
+      </div>
+    </article>
+
+    <article class="panel-card">
+      <div class="panel-header">
+        <h3>Recent activity</h3>
+      </div>
+
+      <ul class="list-stack">
+        @for (item of activities; track item.title) {
+          <li>
+            <strong>{{ item.title }}</strong>
+            <span>{{ item.detail }}</span>
+            <small>{{ item.time }}</small>
+          </li>
+        }
+      </ul>
+    </article>
+
+    <article class="panel-card">
+      <div class="panel-header">
+        <h3>Priority tasks</h3>
+      </div>
+
+      <ul class="check-list">
+        @for (task of tasks; track task) {
+          <li>{{ task }}</li>
+        }
+      </ul>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f3f4f6;
+}
+
+.content-shell {
+  display: flex;
+  flex: 1;
+  gap: 1.25rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.sidebar-panel {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.main-panel {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .content-shell {
+    flex-direction: column;
+  }
+
+  .sidebar-panel {
+    width: 100%;
+  }
+}
