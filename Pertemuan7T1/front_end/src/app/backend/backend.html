@@ -1,0 +1,81 @@
+<article class="backend-page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">Backend integration</p>
+      <h2>Data Mahasiswa</h2>
+      <p>Kelola data melalui API ASP.NET dan database MySQL.</p>
+    </div>
+    <a class="back-link" routerLink="/telephone">Kelola Data Telephone</a>
+  </div>
+
+  <section class="form-card">
+    <h3>{{ editingId === null ? 'Tambah Data' : 'Edit Data' }}</h3>
+    <form (ngSubmit)="save()">
+      <label>
+        Nama
+        <input name="nama" [(ngModel)]="form.nama" required />
+      </label>
+      <label>
+        Alamat
+        <input name="alamat" [(ngModel)]="form.alamat" required />
+      </label>
+      <label>
+        Pesan-pesan
+        <textarea name="pesanpesan" [(ngModel)]="form.pesanpesan" rows="3"></textarea>
+      </label>
+      <label>
+        Tanggal dan waktu
+        <input type="datetime-local" name="dateTime" [(ngModel)]="form.dateTime" />
+      </label>
+      <div class="form-actions">
+        <button type="submit" [disabled]="saving">
+          {{ saving ? 'Menyimpan...' : editingId === null ? 'Tambah Data' : 'Simpan Perubahan' }}
+        </button>
+        <button *ngIf="editingId !== null" type="button" class="secondary" (click)="resetForm()">
+          Batal
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <p *ngIf="errorMessage" class="message error">{{ errorMessage }}</p>
+  <p *ngIf="successMessage" class="message success">{{ successMessage }}</p>
+
+  <section class="table-card">
+    <div class="table-heading">
+      <h3>Daftar Data</h3>
+      <button type="button" class="secondary" (click)="loadData()" [disabled]="loading">
+        {{ loading ? 'Memuat...' : 'Refresh' }}
+      </button>
+    </div>
+
+    <p *ngIf="!loading && mahasiswa.length === 0" class="empty-state">
+      Belum ada data atau data belum dapat dimuat.
+    </p>
+    <div *ngIf="mahasiswa.length > 0" class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Pesan</th>
+            <th>Tanggal</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mahasiswa">
+            <td>{{ item.nama }}</td>
+            <td>{{ item.alamat }}</td>
+            <td>{{ item.pesanpesan || '-' }}</td>
+            <td>{{ item.dateTime ? (item.dateTime | date: 'dd/MM/yyyy HH:mm') : '-' }}</td>
+            <td class="actions">
+              <button type="button" (click)="edit(item)">Edit</button>
+              <button type="button" class="danger" (click)="remove(item)">Hapus</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</article>

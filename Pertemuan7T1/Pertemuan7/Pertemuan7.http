@@ -1,0 +1,6 @@
+@Pertemuan7_HostAddress = http://localhost:5067
+
+GET {{Pertemuan7_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

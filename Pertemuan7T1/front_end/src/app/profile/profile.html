@@ -1,0 +1,181 @@
+<form [formGroup]="form">
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+
+  <p>Value: {{ form.value.name }}</p>
+</form>
+
+<hr>
+
+<h3>Email FormControl (value + status)</h3>
+<label>
+  Email:
+  <input type="email" [formControl]="email">
+</label>
+
+<p>Value: {{ email.value }}</p>
+<p>Valid: {{ email.valid }}</p>
+<p>Errors: {{ email.errors | json }}</p>
+
+<button type="button" (click)="setEmail()">Set Value</button>
+<button type="button" (click)="resetEmail()">Reset</button>
+
+<hr>
+
+<h3>Nested FormGroup (profileForm)</h3>
+<form [formGroup]="profileForm" (ngSubmit)="submitProfile()">
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+
+  <label>
+    Email:
+    <input type="email" formControlName="email">
+  </label>
+
+  <div formGroupName="address">
+    <label>
+      City:
+      <input type="text" formControlName="city">
+    </label>
+
+    <label>
+      Zip:
+      <input type="text" formControlName="zip">
+    </label>
+  </div>
+
+  <button type="submit">Submit Profile</button>
+</form>
+
+<p>Profile Value: {{ profileForm.value | json }}</p>
+
+<hr>
+
+<h3>Reactive Form Template (validators + disabled button)</h3>
+<form [formGroup]="editForm" (ngSubmit)="save()">
+  <label for="name">Nama</label>
+  <input id="name" formControlName="name" />
+
+  <div formGroupName="address">
+    <label for="city">Kota</label>
+    <input id="city" formControlName="city" />
+  </div>
+
+  <button type="submit" [disabled]="editForm.invalid">Simpan</button>
+</form>
+
+<p>Edit Value: {{ editForm.value | json }}</p>
+<p>Valid: {{ editForm.valid }}</p>
+
+<hr>
+
+<h3>FormBuilder (ringkas, kontrol tetap utuh)</h3>
+<form [formGroup]="builderForm" (ngSubmit)="saveBuilder()">
+  <label for="fbName">Nama</label>
+  <input id="fbName" formControlName="name" />
+
+  <label for="fbEmail">Email</label>
+  <input id="fbEmail" formControlName="email"
+    aria-describedby="fbEmail-error" />
+
+  @if (builderEmail.invalid && (builderEmail.touched || builderEmail.dirty)) {
+    <div id="fbEmail-error" role="alert">
+      @if (builderEmail.hasError('required')) { Email wajib diisi. }
+      @else if (builderEmail.hasError('email')) { Format email salah. }
+    </div>
+  }
+
+  <label for="fbCity">Kota</label>
+  <input id="fbCity" formControlName="city" />
+
+  <button type="submit" [disabled]="builderForm.invalid">Simpan</button>
+</form>
+
+<p>Builder Value: {{ builderForm.value | json }}</p>
+
+<hr>
+
+<h3>Mutasi Nilai: setValue vs patchValue vs getRawValue</h3>
+<button type="button" (click)="fillAll()">setValue (semua field)</button>
+<button type="button" (click)="fillCityOnly()">patchValue (city saja)</button>
+<button type="button" (click)="getPayload()">getRawValue</button>
+
+<p>Builder Value (setelah mutasi): {{ builderForm.value | json }}</p>
+
+<hr>
+
+<h3>Custom Validator: forbiddenName (fungsi murni)</h3>
+<label for="username">Username (tidak boleh mengandung "admin")</label>
+<input id="username" [formControl]="username" aria-describedby="username-error" />
+
+@if (username.invalid && (username.touched || username.dirty)) {
+  <div id="username-error" role="alert">
+    @if (username.hasError('forbiddenName')) { Username tidak boleh mengandung "admin". }
+  </div>
+}
+
+<p>Username Value: {{ username.value }}</p>
+<p>Username Valid: {{ username.valid }}</p>
+
+<hr>
+
+<h3>Aturan Lintas-Field (cross-field validator di level FormGroup)</h3>
+<form [formGroup]="passwordForm">
+  <label for="password">Password</label>
+  <input id="password" type="password" formControlName="password" />
+
+  <label for="confirm">Konfirmasi Password</label>
+  <input id="confirm" type="password" formControlName="confirm"
+    aria-describedby="confirm-error" />
+
+  @if (passwordForm.hasError('passwordMismatch') &&
+       (passwordForm.get('confirm')?.touched || passwordForm.get('confirm')?.dirty)) {
+    <div id="confirm-error" role="alert">
+      Password dan konfirmasi tidak sama.
+    </div>
+  }
+</form>
+
+<p>Password Form Valid: {{ passwordForm.valid }}</p>
+
+<hr>
+
+<h3>Async Validator: menunggu sync lolos dulu (usernameTaken)</h3>
+<label for="newUsername">Username baru (coba: admin / root / test)</label>
+<input id="newUsername" [formControl]="newUsername" aria-describedby="newUsername-error" />
+
+@if (newUsername.pending) {
+  <p>Mengecek ketersediaan username...</p>
+}
+
+@if (newUsername.invalid && (newUsername.touched || newUsername.dirty) && !newUsername.pending) {
+  <div id="newUsername-error" role="alert">
+    @if (newUsername.hasError('required')) { Username wajib diisi. }
+    @else if (newUsername.hasError('usernameTaken')) { Username sudah dipakai. }
+  </div>
+}
+
+<p>Status: {{ newUsername.status }}</p>
+
+<hr>
+
+<h3>FormArray: daftar dinamis (skills)</h3>
+<form [formGroup]="skillsForm">
+  <div formArrayName="skills">
+    @for (skill of skills.controls; track $index) {
+      <div>
+        <input [formControlName]="$index" />
+        <button type="button" (click)="removeSkill($index)">Hapus</button>
+      </div>
+    }
+  </div>
+
+  <button type="button" (click)="addSkill()">Tambah Skill</button>
+</form>
+
+<p>Skills Value: {{ skills.value | json }}</p>
+
